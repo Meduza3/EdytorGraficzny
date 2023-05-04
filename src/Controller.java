@@ -102,7 +102,18 @@ public class Controller {
         } else {
             // System.out.println("Drawing now");
             GraphicsContext gc = canvas.getGraphicsContext2D();
-            drawProstokat(gc, e);
+            if(activeTool == 0){
+                drawOkrag(gc, e);
+                System.out.println("drawOkrąg");
+            } else if(activeTool == 1){
+                drawProstokat(gc, e);
+                System.out.println("DrawProstokąt");
+            } else if(activeTool == 2){
+                drawWielokat(gc, e);
+                System.out.println("DrawWielokat");
+            } else {
+                System.out.println("zbyt duży activeTool");
+            }
         }
     }
     @FXML
