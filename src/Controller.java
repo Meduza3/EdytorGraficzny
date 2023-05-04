@@ -94,13 +94,13 @@ public class Controller {
     private void draw(MouseEvent e) {
 
         if (isDrawing == false){
-            System.out.println("not drawing yet!");
+            // System.out.println("not drawing yet!");
             isDrawing = true;
             GraphicsContext gc = canvas.getGraphicsContext2D();
             primaryPointX = e.getX();
             primaryPointY = e.getY();
         } else {
-            System.out.println("Drawing now");
+            // System.out.println("Drawing now");
             GraphicsContext gc = canvas.getGraphicsContext2D();
             drawProstokat(gc, e);
         }
