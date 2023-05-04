@@ -142,7 +142,8 @@ public class Controller {
             realPointY = primaryPointY;
         }
 
-        gc.rect(realPointX, realPointY, weed, height);
+        gc.strokeOval(realPointX, realPointY, weed, height);
+        gc.fillOval(realPointX, realPointY, weed, height);
 
         gc.stroke();
         gc.fill();
