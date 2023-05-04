@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.canvas.*?>
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1200.0" style="-fx-background-color: LIGHTGRAY;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller">
+   <bottom>
+      <AnchorPane prefHeight="80.0" prefWidth="600.0" style="-fx-background-color: GRAY;" BorderPane.alignment="CENTER">
+         <children>
+            <Button fx:id="okragButton" disable="true" layoutX="14.0" layoutY="28.0" mnemonicParsing="false" onAction="#selectOkrag" text="Okrąg" />
+            <Button fx:id="prostokatButton" layoutX="97.0" layoutY="28.0" mnemonicParsing="false" onAction="#selectProstokat" text="Prostokąt" />
+            <Button fx:id="wielokatButton" disable="true" layoutX="200.0" layoutY="28.0" mnemonicParsing="false" onAction="#selectWielokat" text="Wielokąt" />
+            <Button fx:id="infoButton" disable="true" layoutX="1097.0" layoutY="28.0" mnemonicParsing="false" onAction="#showInfo" text="Info" />
+            <Button fx:id="wczytajButton" disable="true" layoutX="999.0" layoutY="28.0" mnemonicParsing="false" onAction="#load" text="Wczytaj" />
+            <Button fx:id="zapiszButton" disable="true" layoutX="908.0" layoutY="28.0" mnemonicParsing="false" onAction="#save" text="Zapisz" />
+            <Text layoutX="302.0" layoutY="32.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Aktualnie rysujesz: " />
+            <Text fx:id="tooltip" layoutX="436.0" layoutY="32.0" strokeType="OUTSIDE" strokeWidth="0.0" />
+            <Text layoutX="302.0" layoutY="58.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Koordynaty myszy:" />
+            <Text fx:id="coords" layoutX="436.0" layoutY="58.0" strokeType="OUTSIDE" strokeWidth="0.0" />
+            <ColorPicker fx:id="strokeColorPicker" layoutX="583.0" layoutY="7.0" />
+            <ColorPicker fx:id="fillColorPicker" layoutX="583.0" layoutY="41.0" />
+         </children></AnchorPane>
+   </bottom>
+   <center>
+      <Canvas fx:id="canvas" height="501.0" onMouseMoved="#updateCoords" onMousePressed="#draw" width="1182.0" BorderPane.alignment="CENTER" />
+   </center>
+</BorderPane>
