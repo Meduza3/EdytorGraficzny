@@ -20,5 +20,6 @@ public class Main extends Application {
         stage.setTitle("Zajebisty Paint Marcina");
         stage.show();
         //Test github
+        //Test github again
     }
 }
