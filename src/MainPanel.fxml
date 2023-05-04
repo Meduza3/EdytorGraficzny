@@ -12,6 +12,8 @@
    <bottom>
       <AnchorPane prefHeight="80.0" prefWidth="600.0" style="-fx-background-color: GRAY;" BorderPane.alignment="CENTER">
          <children>
+            <Button fx:id="okragButton" disable="false" layoutX="14.0" layoutY="28.0" mnemonicParsing="false" onAction="#selectOkrag" text="Okrąg" />
+            <Button fx:id="prostokatButton" layoutX="97.0" layoutY="28.0" mnemonicParsing="false" onAction="#selectProstokat" text="Prostokąt" />
             <Button fx:id="wielokatButton" disable="false" layoutX="200.0" layoutY="28.0" mnemonicParsing="false" onAction="#selectWielokat" text="Wielokąt" />
             <Button fx:id="infoButton" disable="true" layoutX="1097.0" layoutY="28.0" mnemonicParsing="false" onAction="#showInfo" text="Info" />
             <Button fx:id="wczytajButton" disable="true" layoutX="999.0" layoutY="28.0" mnemonicParsing="false" onAction="#load" text="Wczytaj" />
