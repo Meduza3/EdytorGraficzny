@@ -102,6 +102,10 @@ public class Controller {
         } else {
             // System.out.println("Drawing now");
             GraphicsContext gc = canvas.getGraphicsContext2D();
+            gc.setStroke(strokeColorPicker.getValue());
+            gc.setLineWidth(5);
+            gc.setFill(fillColorPicker.getValue());
+            gc.beginPath();
             if(activeTool == 0){
                 drawOkrag(gc, e);
                 System.out.println("drawOkrąg");
@@ -124,10 +128,6 @@ public class Controller {
 
     @FXML
     private void drawProstokat(GraphicsContext gc, MouseEvent e){
-        gc.setStroke(strokeColorPicker.getValue());
-        gc.setLineWidth(5);
-        gc.setFill(fillColorPicker.getValue());
-        gc.beginPath();
         double weed = abs(primaryPointX - e.getX());
         double height = abs(primaryPointY - e.getY());
 
