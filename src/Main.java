@@ -19,5 +19,6 @@ public class Main extends Application {
         stage.setResizable(false);
         stage.setTitle("Zajebisty Paint Marcina");
         stage.show();
+        //Test github
     }
 }
