@@ -122,7 +122,31 @@ public class Controller {
     }
     @FXML
     private void drawOkrag(GraphicsContext gc, MouseEvent e){
-        gc.beginPath();
+        double weed = abs(primaryPointX - e.getX());
+        double height = abs(primaryPointY - e.getY());
+
+        double realPointX = e.getX();
+        double realPointY = e.getY();
+
+        if(e.getX() > primaryPointX && e.getY() < primaryPointY){
+            realPointX = primaryPointX;
+            realPointY = e.getY();
+        } else if(e.getX() > primaryPointX && e.getY() > primaryPointY){
+            realPointX = primaryPointX;
+            realPointY = primaryPointY;
+        } else if(e.getX() < primaryPointX && e.getY() < primaryPointY){
+            realPointX = e.getX();
+            realPointY = e.getY();
+        } else if(e.getX() < primaryPointX && e.getY() > primaryPointY){
+            realPointX = e.getX();
+            realPointY = primaryPointY;
+        }
+
+        gc.rect(realPointX, realPointY, weed, height);
+
+        gc.stroke();
+        gc.fill();
+
         isDrawing = false;
     }
 
