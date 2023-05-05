@@ -122,7 +122,7 @@ public class Controller {
     }
     @FXML
     private void drawOkrag(GraphicsContext gc, MouseEvent e){
-        double weed = abs(primaryPointX - e.getX());
+        double width = abs(primaryPointX - e.getX());
         double height = abs(primaryPointY - e.getY());
 
         double realPointX = e.getX();
@@ -142,8 +142,8 @@ public class Controller {
             realPointY = primaryPointY;
         }
 
-        gc.strokeOval(realPointX, realPointY, weed, height);
-        gc.fillOval(realPointX, realPointY, weed, height);
+        gc.strokeOval(realPointX, realPointY, width, height);
+        gc.fillOval(realPointX, realPointY, width, height);
 
         gc.stroke();
         gc.fill();
@@ -153,7 +153,7 @@ public class Controller {
 
     @FXML
     private void drawProstokat(GraphicsContext gc, MouseEvent e){
-        double weed = abs(primaryPointX - e.getX());
+        double width = abs(primaryPointX - e.getX());
         double height = abs(primaryPointY - e.getY());
 
         double realPointX = e.getX();
@@ -174,7 +174,7 @@ public class Controller {
         }
 
 
-        gc.rect(realPointX, realPointY, weed, height);
+        gc.rect(realPointX, realPointY, width, height);
 
         gc.stroke();
         gc.fill();
