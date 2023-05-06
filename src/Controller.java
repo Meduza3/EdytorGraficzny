@@ -4,6 +4,9 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
 import javafx.scene.control.ColorPicker;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.Pane;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.*;
 import javafx.scene.text.Text;
 
 import static java.lang.Math.*;
@@ -28,11 +31,15 @@ public class Controller {
     @FXML
     private Canvas canvas;
     @FXML
+    private Pane pane;
+    @FXML
     private ColorPicker strokeColorPicker;
     @FXML
     private ColorPicker fillColorPicker;
     @FXML
-    private int activeTool = 1;
+    private Button switchColorButton;
+    @FXML
+    private int activeTool = 0;
     private boolean isDrawing = false;
     private boolean primaryClickExists = false;
     private double primaryPointX;
@@ -117,6 +124,84 @@ public class Controller {
             }
         }
     }
+
+    @FXML
+    private void draw2(MouseEvent e){
+        if(isDrawing){
+            switch(activeTool){
+                case 0:
+                    System.out.println("createCircle");
+                    createCircle(e);
+                    break;
+                case 1:
+                    System.out.println("createRectangle");
+                    createRectangle(e);
+                    break;
+                case 2:
+                    System.out.println("createPolygon");
+                    createPolygon(e);
+                    break;
+                default:
+            }
+            isDrawing = false;
+        } else {
+            primaryPointX = e.getX();
+            primaryPointY = e.getY();
+            isDrawing = true;
+        }
+    }
+
+    private void createCircle(MouseEvent e){
+        Circle circle = new Circle();
+        circle.setCenterX(primaryPointX);
+        circle.setCenterY(primaryPointY);
+
+        double radius = (sqrt(((primaryPointY - e.getY()) * (primaryPointY - e.getY()) + (primaryPointX - e.getX()) * (primaryPointX - e.getX()))));
+
+        circle.setFill(fillColorPicker.getValue());
+        circle.setStroke(strokeColorPicker.getValue());
+
+        circle.setRadius(radius);
+        pane.getChildren().add(circle);
+    }
+
+    private void createRectangle(MouseEvent e){
+        Rectangle rectangle = new Rectangle();
+
+        double realPointX = e.getX();
+        double realPointY = e.getY();
+
+        if(e.getX() > primaryPointX && e.getY() < primaryPointY){
+            realPointX = primaryPointX;
+            realPointY = e.getY();
+        } else if(e.getX() > primaryPointX && e.getY() > primaryPointY){
+            realPointX = primaryPointX;
+            realPointY = primaryPointY;
+        } else if(e.getX() < primaryPointX && e.getY() < primaryPointY){
+            realPointX = e.getX();
+            realPointY = e.getY();
+        } else if(e.getX() < primaryPointX && e.getY() > primaryPointY){
+            realPointX = e.getX();
+            realPointY = primaryPointY;
+        }
+
+        rectangle.setStroke(strokeColorPicker.getValue());
+        rectangle.setFill(fillColorPicker.getValue());
+
+        double width = abs(primaryPointX - e.getX());
+        double height = abs(primaryPointY - e.getY());
+
+        rectangle.setX(realPointX);
+        rectangle.setY(realPointY);
+        rectangle.setWidth(width);
+        rectangle.setHeight(height);
+
+        pane.getChildren().add(rectangle);
+    }
+
+    private void createPolygon(MouseEvent e){
+
+    }
     @FXML
     private void drawCircle(GraphicsContext gc, MouseEvent e){
         double width = abs(primaryPointX - e.getX());
@@ -179,5 +264,12 @@ public class Controller {
     private void drawPolygon(GraphicsContext gc, MouseEvent e){
         isDrawing = false;
 
+    }
+
+    @FXML
+    private void switchColor(){
+        Color temp = fillColorPicker.getValue();
+        fillColorPicker.setValue(strokeColorPicker.getValue());
+        strokeColorPicker.setValue(temp);
     }
 }

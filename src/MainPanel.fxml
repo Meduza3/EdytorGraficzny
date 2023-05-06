@@ -24,9 +24,10 @@
             <Text fx:id="coords" layoutX="436.0" layoutY="58.0" strokeType="OUTSIDE" strokeWidth="0.0" />
             <ColorPicker fx:id="strokeColorPicker" layoutX="583.0" layoutY="7.0" />
             <ColorPicker fx:id="fillColorPicker" layoutX="583.0" layoutY="41.0" />
+            <Button fx:id="switchColorButton" layoutX="781.0" layoutY="23.0" mnemonicParsing="false" onAction="#switchColor" prefHeight="25.0" prefWidth="6.0" text="X" />
          </children></AnchorPane>
    </bottom>
    <center>
-      <Canvas fx:id="canvas" height="501.0" onMouseMoved="#updateCoords" onMousePressed="#draw" width="1182.0" BorderPane.alignment="CENTER" />
+      <Pane fx:id="pane" onMouseMoved="#updateCoords" onMousePressed="#draw2" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
    </center>
 </BorderPane>
