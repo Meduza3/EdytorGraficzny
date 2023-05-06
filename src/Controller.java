@@ -33,7 +33,7 @@ public class Controller {
     @FXML
     private Pane pane;
     @FXML
-    private ColorPicker strokeColorPicker;
+    private static ColorPicker strokeColorPicker;
     @FXML
     private ColorPicker fillColorPicker;
     @FXML
@@ -95,34 +95,6 @@ public class Controller {
     private void updateCoords(MouseEvent e){
         coords.setText("(x,y) = (" + (int) e.getX() + "," + (int) e.getY() + ")");
         updateTooltip();
-    }
-
-    @FXML
-    private void draw(MouseEvent e) {
-
-        if (!isDrawing){
-            isDrawing = true;
-            primaryPointX = e.getX();
-            primaryPointY = e.getY();
-        } else {
-            GraphicsContext gc = canvas.getGraphicsContext2D();
-            gc.setStroke(strokeColorPicker.getValue());
-            gc.setLineWidth(5);
-            gc.setFill(fillColorPicker.getValue());
-            gc.beginPath();
-            if(activeTool == 0){
-                drawCircle(gc, e);
-                System.out.println("drawOkrąg");
-            } else if(activeTool == 1){
-                drawRectangle(gc, e);
-                System.out.println("DrawProstokąt");
-            } else if(activeTool == 2){
-                drawPolygon(gc, e);
-                System.out.println("DrawWielokat");
-            } else {
-                System.out.println("zbyt duży activeTool");
-            }
-        }
     }
 
     @FXML
@@ -202,70 +174,6 @@ public class Controller {
     private void createPolygon(MouseEvent e){
 
     }
-    @FXML
-    private void drawCircle(GraphicsContext gc, MouseEvent e){
-        double width = abs(primaryPointX - e.getX());
-        double height = abs(primaryPointY - e.getY());
-
-        double realPointX = e.getX();
-        double realPointY = e.getY();
-
-        if(e.getX() > primaryPointX && e.getY() < primaryPointY){
-            realPointX = primaryPointX;
-            realPointY = e.getY();
-        } else if(e.getX() > primaryPointX && e.getY() > primaryPointY){
-            realPointX = primaryPointX;
-            realPointY = primaryPointY;
-        } else if(e.getX() < primaryPointX && e.getY() < primaryPointY){
-            realPointX = e.getX();
-            realPointY = e.getY();
-        } else if(e.getX() < primaryPointX && e.getY() > primaryPointY){
-            realPointX = e.getX();
-            realPointY = primaryPointY;
-        }
-
-        gc.strokeOval(realPointX, realPointY, width, height);
-        gc.fillOval(realPointX, realPointY, width, height);
-        isDrawing = false;
-    }
-
-    @FXML
-    private void drawRectangle(GraphicsContext gc, MouseEvent e){
-        double width = abs(primaryPointX - e.getX());
-        double height = abs(primaryPointY - e.getY());
-
-        double realPointX = e.getX();
-        double realPointY = e.getY();
-        
-        if(e.getX() > primaryPointX && e.getY() < primaryPointY){
-            realPointX = primaryPointX;
-            realPointY = e.getY();
-        } else if(e.getX() > primaryPointX && e.getY() > primaryPointY){
-            realPointX = primaryPointX;
-            realPointY = primaryPointY;
-        } else if(e.getX() < primaryPointX && e.getY() < primaryPointY){
-            realPointX = e.getX();
-            realPointY = e.getY();
-        } else if(e.getX() < primaryPointX && e.getY() > primaryPointY){
-            realPointX = e.getX();
-            realPointY = primaryPointY;
-        }
-
-
-        gc.rect(realPointX, realPointY, width, height);
-
-        gc.stroke();
-        gc.fill();
-
-        isDrawing = false;
-    }
-
-    @FXML
-    private void drawPolygon(GraphicsContext gc, MouseEvent e){
-        isDrawing = false;
-
-    }
-
     @FXML
     private void switchColor(){
         Color temp = fillColorPicker.getValue();
