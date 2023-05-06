@@ -32,16 +32,16 @@ public class Controller {
     private Canvas canvas;
     @FXML
     private Pane pane;
+
     @FXML
-    private static ColorPicker strokeColorPicker;
+    private ColorPicker strokeColorPicker;
     @FXML
     private ColorPicker fillColorPicker;
     @FXML
     private Button switchColorButton;
     @FXML
-    private int activeTool = 0;
+    private int activeTool = 99;
     private boolean isDrawing = false;
-    private boolean primaryClickExists = false;
     private double primaryPointX;
     private double primaryPointY;
 
@@ -86,7 +86,9 @@ public class Controller {
             tooltip.setText("Rectangle");
         } else if(activeTool == 2){
             tooltip.setText("Polygon");
-        } else {
+        } else if(activeTool == 99){
+            tooltip.setText("Select tool");
+        }else {
             tooltip.setText("Error");
         }
     }
@@ -97,6 +99,10 @@ public class Controller {
         updateTooltip();
     }
 
+    @FXML
+    private void clipContents(){
+        pane.setClip(new Rectangle(pane.getWidth(), pane.getHeight()));
+    }
     @FXML
     private void draw2(MouseEvent e){
         if(isDrawing){
@@ -122,24 +128,11 @@ public class Controller {
             isDrawing = true;
         }
     }
+    private void createPolygon(MouseEvent e){
 
-    private void createCircle(MouseEvent e){
-        Circle circle = new Circle();
-        circle.setCenterX(primaryPointX);
-        circle.setCenterY(primaryPointY);
-
-        double radius = (sqrt(((primaryPointY - e.getY()) * (primaryPointY - e.getY()) + (primaryPointX - e.getX()) * (primaryPointX - e.getX()))));
-
-        circle.setFill(fillColorPicker.getValue());
-        circle.setStroke(strokeColorPicker.getValue());
-
-        circle.setRadius(radius);
-        pane.getChildren().add(circle);
     }
-
     private void createRectangle(MouseEvent e){
-        Rectangle rectangle = new Rectangle();
-
+        ERectangle rectangle = new ERectangle();
         double realPointX = e.getX();
         double realPointY = e.getY();
 
@@ -170,10 +163,20 @@ public class Controller {
 
         pane.getChildren().add(rectangle);
     }
+    private void createCircle(MouseEvent e){
+        ECircle circle = new ECircle();
+        circle.setCenterX(primaryPointX);
+        circle.setCenterY(primaryPointY);
 
-    private void createPolygon(MouseEvent e){
+        double radius = (sqrt(((primaryPointY - e.getY()) * (primaryPointY - e.getY()) + (primaryPointX - e.getX()) * (primaryPointX - e.getX()))));
 
+        circle.setFill(fillColorPicker.getValue());
+        circle.setStroke(strokeColorPicker.getValue());
+
+        circle.setRadius(radius);
+        pane.getChildren().add(circle);
     }
+
     @FXML
     private void switchColor(){
         Color temp = fillColorPicker.getValue();

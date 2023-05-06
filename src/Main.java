@@ -16,9 +16,11 @@ public class Main extends Application {
     public void start(Stage stage) throws Exception {
         Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("MainPanel.fxml")));
         Scene scene = new Scene(root);
+
         stage.setScene(scene);
         stage.setResizable(false);
         stage.setTitle("Marcin Paint");
         stage.show();
+
     }
 }

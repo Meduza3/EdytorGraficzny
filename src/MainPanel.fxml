@@ -7,15 +7,15 @@
 <?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-
 <?import javafx.scene.paint.Color?>
+
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1200.0" style="-fx-background-color: LIGHTGRAY;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller">
    <bottom>
-      <AnchorPane prefHeight="80.0" prefWidth="600.0" style="-fx-background-color: GRAY;" BorderPane.alignment="CENTER">
+      <AnchorPane onMouseEntered="#clipContents" onMouseExited="#clipContents" prefHeight="80.0" prefWidth="600.0" style="-fx-background-color: GRAY;" BorderPane.alignment="CENTER">
          <children>
-            <Button fx:id="circleButton" disable="false" layoutX="14.0" layoutY="28.0" mnemonicParsing="false" onAction="#selectCircle" text="Circle" />
+            <Button fx:id="circleButton" layoutX="14.0" layoutY="28.0" mnemonicParsing="false" onAction="#selectCircle" text="Circle" />
             <Button fx:id="rectangleButton" layoutX="97.0" layoutY="28.0" mnemonicParsing="false" onAction="#selectRectangle" text="Rectangle" />
-            <Button fx:id="polygonButton" disable="true" layoutX="200.0" layoutY="28.0" mnemonicParsing="false" onAction="#selectPolygon" text="Polygon" />
+            <Button fx:id="polygonButton" layoutX="200.0" layoutY="28.0" mnemonicParsing="false" onAction="#selectPolygon" text="Polygon" />
             <Button fx:id="infoButton" disable="true" layoutX="1097.0" layoutY="28.0" mnemonicParsing="false" onAction="#showInfo" text="Info" />
             <Button fx:id="loadButton" disable="true" layoutX="999.0" layoutY="28.0" mnemonicParsing="false" onAction="#load" text="Load" />
             <Button fx:id="saveButton" disable="true" layoutX="908.0" layoutY="28.0" mnemonicParsing="false" onAction="#save" text="Save" />
@@ -23,7 +23,7 @@
             <Text fx:id="tooltip" layoutX="436.0" layoutY="32.0" strokeType="OUTSIDE" strokeWidth="0.0" />
             <Text layoutX="302.0" layoutY="58.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Mouse coordinates:" />
             <Text fx:id="coords" layoutX="436.0" layoutY="58.0" strokeType="OUTSIDE" strokeWidth="0.0" />
-            <ColorPicker fx:id="strokeColorPicker" layoutX="583.0" layoutY="7.0"/>
+            <ColorPicker fx:id="strokeColorPicker" layoutX="583.0" layoutY="7.0" />
             <ColorPicker fx:id="fillColorPicker" layoutX="583.0" layoutY="41.0" />
             <Button fx:id="switchColorButton" layoutX="781.0" layoutY="23.0" mnemonicParsing="false" onAction="#switchColor" prefHeight="25.0" prefWidth="6.0" text="X" />
          </children></AnchorPane>
