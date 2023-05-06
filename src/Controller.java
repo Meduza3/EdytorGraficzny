@@ -6,21 +6,21 @@ import javafx.scene.control.ColorPicker;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.text.Text;
 
-import static java.lang.Math.abs;
+import static java.lang.Math.*;
 
 public class Controller {
     @FXML
-    private Button okragButton;
+    private Button circleButton;
     @FXML
-    private Button prostokatButton;
+    private Button rectangleButton;
     @FXML
-    private Button wielokatButton;
+    private Button polygonButton;
     @FXML
     private Button infoButton;
     @FXML
-    private Button wczytajButton;
+    private Button loadButton;
     @FXML
-    private Button zapiszButton;
+    private Button saveButton;
     @FXML
     private Text tooltip;
     @FXML
@@ -39,19 +39,19 @@ public class Controller {
     private double primaryPointY;
 
     @FXML
-    private void selectOkrag(){
+    private void selectCircle(){
         activeTool = 0;
         updateTooltip();
     }
 
     @FXML
-    private void selectProstokat(){
+    private void selectRectangle(){
         activeTool = 1;
         updateTooltip();
     }
 
     @FXML
-    private void selectWielokat(){
+    private void selectPolygon(){
         activeTool = 2;
         updateTooltip();
     }
@@ -74,11 +74,11 @@ public class Controller {
     @FXML
     private void updateTooltip(){
         if(activeTool == 0){
-            tooltip.setText("Okrąg");
+            tooltip.setText("Circle");
         } else if(activeTool == 1){
-            tooltip.setText("Prostokąt");
+            tooltip.setText("Rectangle");
         } else if(activeTool == 2){
-            tooltip.setText("Wielokąt");
+            tooltip.setText("Polygon");
         } else {
             tooltip.setText("Error");
         }
@@ -93,27 +93,24 @@ public class Controller {
     @FXML
     private void draw(MouseEvent e) {
 
-        if (isDrawing == false){
-            // System.out.println("not drawing yet!");
+        if (!isDrawing){
             isDrawing = true;
-            GraphicsContext gc = canvas.getGraphicsContext2D();
             primaryPointX = e.getX();
             primaryPointY = e.getY();
         } else {
-            // System.out.println("Drawing now");
             GraphicsContext gc = canvas.getGraphicsContext2D();
             gc.setStroke(strokeColorPicker.getValue());
             gc.setLineWidth(5);
             gc.setFill(fillColorPicker.getValue());
             gc.beginPath();
             if(activeTool == 0){
-                drawOkrag(gc, e);
+                drawCircle(gc, e);
                 System.out.println("drawOkrąg");
             } else if(activeTool == 1){
-                drawProstokat(gc, e);
+                drawRectangle(gc, e);
                 System.out.println("DrawProstokąt");
             } else if(activeTool == 2){
-                drawWielokat(gc, e);
+                drawPolygon(gc, e);
                 System.out.println("DrawWielokat");
             } else {
                 System.out.println("zbyt duży activeTool");
@@ -121,8 +118,8 @@ public class Controller {
         }
     }
     @FXML
-    private void drawOkrag(GraphicsContext gc, MouseEvent e){
-        double weed = abs(primaryPointX - e.getX());
+    private void drawCircle(GraphicsContext gc, MouseEvent e){
+        double width = abs(primaryPointX - e.getX());
         double height = abs(primaryPointY - e.getY());
 
         double realPointX = e.getX();
@@ -142,18 +139,14 @@ public class Controller {
             realPointY = primaryPointY;
         }
 
-        gc.strokeOval(realPointX, realPointY, weed, height);
-        gc.fillOval(realPointX, realPointY, weed, height);
-
-        gc.stroke();
-        gc.fill();
-
+        gc.strokeOval(realPointX, realPointY, width, height);
+        gc.fillOval(realPointX, realPointY, width, height);
         isDrawing = false;
     }
 
     @FXML
-    private void drawProstokat(GraphicsContext gc, MouseEvent e){
-        double weed = abs(primaryPointX - e.getX());
+    private void drawRectangle(GraphicsContext gc, MouseEvent e){
+        double width = abs(primaryPointX - e.getX());
         double height = abs(primaryPointY - e.getY());
 
         double realPointX = e.getX();
@@ -174,7 +167,7 @@ public class Controller {
         }
 
 
-        gc.rect(realPointX, realPointY, weed, height);
+        gc.rect(realPointX, realPointY, width, height);
 
         gc.stroke();
         gc.fill();
@@ -183,7 +176,7 @@ public class Controller {
     }
 
     @FXML
-    private void drawWielokat(GraphicsContext gc, MouseEvent e){
+    private void drawPolygon(GraphicsContext gc, MouseEvent e){
         isDrawing = false;
 
     }

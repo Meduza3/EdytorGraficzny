@@ -17,7 +17,7 @@ public class Main extends Application {
         Scene scene = new Scene(root);
         stage.setScene(scene);
         stage.setResizable(false);
-        stage.setTitle("Zajebisty Paint Marcina");
+        stage.setTitle("Marcin Paint");
         stage.show();
     }
 }
