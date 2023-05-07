@@ -1,13 +1,20 @@
 import javafx.fxml.FXML;
+import javafx.geometry.Point2D;
+import javafx.scene.Node;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
 import javafx.scene.control.ColorPicker;
+import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.*;
 import javafx.scene.text.Text;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.DoubleStream;
 
 import static java.lang.Math.*;
 
@@ -42,6 +49,7 @@ public class Controller {
     @FXML
     private int activeTool = 99;
     private boolean isDrawing = false;
+    private boolean isPolygonDrawing = false;
     private double primaryPointX;
     private double primaryPointY;
 
@@ -63,6 +71,11 @@ public class Controller {
         updateTooltip();
     }
 
+    @FXML
+    private void selectEdit(){
+        activeTool = 10;
+        updateTooltip();
+    }
     @FXML
     private void showInfo(){
 
@@ -86,7 +99,9 @@ public class Controller {
             tooltip.setText("Rectangle");
         } else if(activeTool == 2){
             tooltip.setText("Polygon");
-        } else if(activeTool == 99){
+        } else if(activeTool == 10){
+            tooltip.setText("Edit tool");
+        }else if(activeTool == 99){
             tooltip.setText("Select tool");
         }else {
             tooltip.setText("Error");
@@ -116,21 +131,54 @@ public class Controller {
                     createRectangle(e);
                     break;
                 case 2:
-                    System.out.println("createPolygon");
-                    createPolygon(e);
+                    if(isPolygonDrawing == false) {
+                        System.out.println("createPolygon");
+                        createPolygon(e);
+                    }
                     break;
                 default:
             }
             isDrawing = false;
         } else {
-            primaryPointX = e.getX();
-            primaryPointY = e.getY();
-            isDrawing = true;
+            if(activeTool != 10){
+                primaryPointX = e.getX();
+                primaryPointY = e.getY();
+                isDrawing = true;
+            } else {
+                Shape current = getLastClickedShape(pane, e.getX(), e.getY());
+                if(e.getButton() == MouseButton.SECONDARY){
+                    pane.getChildren().remove(current);
+                } else if(e.getButton() == MouseButton.PRIMARY){
+                    if(current instanceof ERectangle){
+                        ERectangle currentRect = (ERectangle) current;
+                        currentRect.moveCenter(e.getX(), e.getY());
+                        currentRect.setStroke(strokeColorPicker.getValue());
+                        currentRect.setFill(fillColorPicker.getValue());
+                    } else if(current instanceof ECircle){
+                        ECircle currentCircle = (ECircle) current;
+                        currentCircle.moveCenter(e.getX(), e.getY());
+                        currentCircle.setStroke(strokeColorPicker.getValue());
+                        currentCircle.setFill(fillColorPicker.getValue());
+
+                    }
+                }
+            }
         }
     }
-    private void createPolygon(MouseEvent e){
+
+    private void createPolygon(MouseEvent e) {
 
     }
+    private Shape getLastClickedShape(Pane pane, double mouseX, double mouseY){
+        Shape lastClicked = null;
+        for (Node node : pane.getChildren()){
+            if(node.contains(mouseX,mouseY)) {
+                if (node instanceof Shape) lastClicked = (Shape) node;
+            }
+        }
+        return lastClicked;
+    }
+
     private void createRectangle(MouseEvent e){
         ERectangle rectangle = new ERectangle();
         double realPointX = e.getX();

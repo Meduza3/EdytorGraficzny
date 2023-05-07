@@ -13,9 +13,9 @@
    <bottom>
       <AnchorPane onMouseEntered="#clipContents" onMouseExited="#clipContents" prefHeight="80.0" prefWidth="600.0" style="-fx-background-color: GRAY;" BorderPane.alignment="CENTER">
          <children>
-            <Button fx:id="circleButton" layoutX="14.0" layoutY="28.0" mnemonicParsing="false" onAction="#selectCircle" text="Circle" />
-            <Button fx:id="rectangleButton" layoutX="97.0" layoutY="28.0" mnemonicParsing="false" onAction="#selectRectangle" text="Rectangle" />
-            <Button fx:id="polygonButton" layoutX="200.0" layoutY="28.0" mnemonicParsing="false" onAction="#selectPolygon" text="Polygon" />
+            <Button fx:id="circleButton" layoutX="15.0" layoutY="41.0" mnemonicParsing="false" onAction="#selectCircle" text="Circle" />
+            <Button fx:id="rectangleButton" layoutX="89.0" layoutY="41.0" mnemonicParsing="false" onAction="#selectRectangle" text="Rectangle" />
+            <Button fx:id="polygonButton" layoutX="194.0" layoutY="41.0" mnemonicParsing="false" onAction="#selectPolygon" text="Polygon" />
             <Button fx:id="infoButton" disable="true" layoutX="1097.0" layoutY="28.0" mnemonicParsing="false" onAction="#showInfo" text="Info" />
             <Button fx:id="loadButton" disable="true" layoutX="999.0" layoutY="28.0" mnemonicParsing="false" onAction="#load" text="Load" />
             <Button fx:id="saveButton" disable="true" layoutX="908.0" layoutY="28.0" mnemonicParsing="false" onAction="#save" text="Save" />
@@ -26,6 +26,7 @@
             <ColorPicker fx:id="strokeColorPicker" layoutX="583.0" layoutY="7.0" />
             <ColorPicker fx:id="fillColorPicker" layoutX="583.0" layoutY="41.0" />
             <Button fx:id="switchColorButton" layoutX="781.0" layoutY="23.0" mnemonicParsing="false" onAction="#switchColor" prefHeight="25.0" prefWidth="6.0" text="X" />
+            <Button layoutX="84.0" layoutY="8.0" mnemonicParsing="false" onAction="#selectEdit" text="Edit shapes" />
          </children></AnchorPane>
    </bottom>
    <center>
