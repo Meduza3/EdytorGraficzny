@@ -12,6 +12,7 @@ import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.*;
 import javafx.scene.text.Text;
+import javafx.scene.transform.Rotate;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -189,11 +190,17 @@ public class Controller {
                             ERectangle currentRectanlge = (ERectangle) lastClicked;
                             currentRectanlge.moveCenter(e.getX(), e.getY());
                         } else if(lastClicked instanceof Polygon){
-                            //Polygon
+                            EPolygon currentPolygon = (EPolygon) lastClicked;
+                            currentPolygon.moveCenter(e.getX(), e.getY());
                         }
                         break;
                     case 12:
                         System.out.println("rotate");
+                        if(e.getButton() == MouseButton.PRIMARY){
+                            lastClicked.getTransforms().add(new Rotate(15, e.getX(), e.getY()));
+                        } else if(e.getButton() == MouseButton.SECONDARY){
+                            lastClicked.getTransforms().add(new Rotate(-15, e.getX(), e.getY()));
+                        }
                         break;
                     case 20:
                         System.out.println("Eyedropper");
