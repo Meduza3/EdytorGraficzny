@@ -7,6 +7,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ColorPicker;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.input.ScrollEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.*;
@@ -73,8 +74,26 @@ public class Controller {
     }
 
     @FXML
-    private void selectEdit(){
+    private void selectPaint(){
         activeTool = 10;
+        updateTooltip();
+    }
+
+    @FXML
+    private void selectMove(){
+        activeTool = 11;
+        updateTooltip();
+    }
+
+    @FXML
+    private void selectRotate(){
+       activeTool = 12;
+       updateTooltip();
+    }
+
+    @FXML
+    private void selectEyedropper(){
+        activeTool = 20;
         updateTooltip();
     }
     @FXML
@@ -101,13 +120,20 @@ public class Controller {
         } else if(activeTool == 2){
             tooltip.setText("Polygon");
         } else if(activeTool == 10){
-            tooltip.setText("Edit tool");
-        }else if(activeTool == 99){
+            tooltip.setText("Paint tool");
+        } else if(activeTool == 11) {
+            tooltip.setText("Move tool");
+        } else if(activeTool == 12) {
+            tooltip.setText("Rotate tool");
+        } else if(activeTool == 20) {
+            tooltip.setText("Eyedropper");
+        } else if(activeTool == 99){
             tooltip.setText("Select tool");
-        }else {
+        } else {
             tooltip.setText("Error");
         }
     }
+
 
     @FXML
     private void updateCoords(MouseEvent e){
@@ -142,27 +168,36 @@ public class Controller {
                 default:
             }
         } else {
-            if(activeTool != 10){
+            if(!(activeTool == 10 || activeTool == 11 || activeTool == 12) || activeTool == 20){
                 primaryPointX = e.getX();
                 primaryPointY = e.getY();
                 isDrawing = true;
             } else {
-                Shape current = getLastClickedShape(pane, e.getX(), e.getY());
-                if(e.getButton() == MouseButton.SECONDARY){
-                    pane.getChildren().remove(current);
-                } else if(e.getButton() == MouseButton.PRIMARY){
-                    if(current instanceof ERectangle){
-                        ERectangle currentRect = (ERectangle) current;
-                        currentRect.moveCenter(e.getX(), e.getY());
-                        currentRect.setStroke(strokeColorPicker.getValue());
-                        currentRect.setFill(fillColorPicker.getValue());
-                    } else if(current instanceof ECircle){
-                        ECircle currentCircle = (ECircle) current;
-                        currentCircle.moveCenter(e.getX(), e.getY());
-                        currentCircle.setStroke(strokeColorPicker.getValue());
-                        currentCircle.setFill(fillColorPicker.getValue());
-
-                    }
+                Shape lastClicked = getLastClickedShape(pane, e.getX(), e.getY());
+                switch(activeTool){
+                    case 10:
+                        System.out.println("paint");
+                        lastClicked.setFill(fillColorPicker.getValue());
+                        lastClicked.setStroke(strokeColorPicker.getValue());
+                        break;
+                    case 11:
+                        System.out.println("move");
+                        if(lastClicked instanceof ECircle) {
+                            ECircle currentCircle = (ECircle) lastClicked;
+                            currentCircle.moveCenter(e.getX(), e.getY());
+                        } else if(lastClicked instanceof ERectangle){
+                            ERectangle currentRectanlge = (ERectangle) lastClicked;
+                            currentRectanlge.moveCenter(e.getX(), e.getY());
+                        } else if(lastClicked instanceof Polygon){
+                            //Polygon
+                        }
+                        break;
+                    case 12:
+                        System.out.println("rotate");
+                        break;
+                    case 20:
+                        System.out.println("Eyedropper");
+                        eyedropper(lastClicked);
                 }
             }
         }
@@ -181,6 +216,7 @@ public class Controller {
             Polygon polygon = new Polygon(points.stream().mapToDouble(Double::doubleValue).toArray());
             polygon.setStroke(strokeColorPicker.getValue());
             polygon.setFill(fillColorPicker.getValue());
+            addMouseScrolling(polygon);
             pane.getChildren().add(polygon);
             mouseClicks.clear();
             isDrawing = false;
@@ -225,7 +261,7 @@ public class Controller {
         rectangle.setY(realPointY);
         rectangle.setWidth(width);
         rectangle.setHeight(height);
-
+        addMouseScrolling(rectangle);
         pane.getChildren().add(rectangle);
     }
     private void createCircle(MouseEvent e){
@@ -239,6 +275,7 @@ public class Controller {
         circle.setStroke(strokeColorPicker.getValue());
 
         circle.setRadius(radius);
+        addMouseScrolling(circle);
         pane.getChildren().add(circle);
     }
     @FXML
@@ -246,5 +283,19 @@ public class Controller {
         Color temp = fillColorPicker.getValue();
         fillColorPicker.setValue(strokeColorPicker.getValue());
         strokeColorPicker.setValue(temp);
+    }
+
+    @FXML
+    private void eyedropper(Shape shape){
+        fillColorPicker.setValue((Color) shape.getFill());
+        strokeColorPicker.setValue((Color) shape.getStroke());
+    }
+
+    public void addMouseScrolling(Node node) {
+        node.setOnScroll((ScrollEvent event) -> {
+            double zoomFactor = 1 + event.getDeltaY() / 100;
+            node.setScaleX(node.getScaleX() * zoomFactor);
+            node.setScaleY(node.getScaleY() * zoomFactor);
+        });
     }
 }

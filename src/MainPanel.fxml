@@ -25,10 +25,11 @@
             <Text fx:id="coords" layoutX="436.0" layoutY="58.0" strokeType="OUTSIDE" strokeWidth="0.0" />
             <ColorPicker fx:id="strokeColorPicker" layoutX="583.0" layoutY="7.0" />
             <ColorPicker fx:id="fillColorPicker" layoutX="583.0" layoutY="41.0" />
-            <Button fx:id="switchColorButton" layoutX="781.0" layoutY="23.0" mnemonicParsing="false" onAction="#switchColor" prefHeight="25.0" prefWidth="6.0" text="X" />
-            <Button layoutX="14.0" layoutY="7.0" mnemonicParsing="false" onAction="#selectEdit" prefHeight="25.0" prefWidth="57.0" text="Edit" />
-            <Button layoutX="89.0" layoutY="8.0" mnemonicParsing="false" text="Move" />
-            <Button layoutX="154.0" layoutY="8.0" mnemonicParsing="false" text="Rotate" />
+            <Button fx:id="switchColorButton" layoutX="780.0" layoutY="7.0" mnemonicParsing="false" onAction="#switchColor" prefHeight="25.0" prefWidth="6.0" text="X" />
+            <Button layoutX="14.0" layoutY="7.0" mnemonicParsing="false" onAction="#selectPaint" prefHeight="25.0" prefWidth="57.0" text="Paint" />
+            <Button layoutX="105.0" layoutY="8.0" mnemonicParsing="false" onAction="#selectMove" text="Move" />
+            <Button layoutX="198.0" layoutY="7.0" mnemonicParsing="false" onAction="#selectRotate" text="Rotate" />
+            <Button layoutX="776.0" layoutY="41.0" mnemonicParsing="false" onAction="#selectEyedropper" text="Get Color" />
          </children></AnchorPane>
    </bottom>
    <center>
