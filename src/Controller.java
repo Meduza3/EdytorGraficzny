@@ -52,6 +52,7 @@ public class Controller {
     private boolean isPolygonDrawing = false;
     private double primaryPointX;
     private double primaryPointY;
+    private ArrayList<Double> mouseClicks = new ArrayList<>();
 
     @FXML
     private void selectCircle(){
@@ -119,16 +120,18 @@ public class Controller {
         pane.setClip(new Rectangle(pane.getWidth(), pane.getHeight()));
     }
     @FXML
-    private void draw2(MouseEvent e){
+    private void draw(MouseEvent e){
         if(isDrawing){
             switch(activeTool){
                 case 0:
                     System.out.println("createCircle");
                     createCircle(e);
+                    isDrawing = false;
                     break;
                 case 1:
                     System.out.println("createRectangle");
                     createRectangle(e);
+                    isDrawing = false;
                     break;
                 case 2:
                     if(isPolygonDrawing == false) {
@@ -138,7 +141,6 @@ public class Controller {
                     break;
                 default:
             }
-            isDrawing = false;
         } else {
             if(activeTool != 10){
                 primaryPointX = e.getX();
@@ -167,7 +169,22 @@ public class Controller {
     }
 
     private void createPolygon(MouseEvent e) {
-
+        if(e.getButton() == MouseButton.PRIMARY){
+            mouseClicks.add(e.getX());
+            mouseClicks.add(e.getY());
+        } else if (e.getButton() == MouseButton.SECONDARY){
+            System.out.println(mouseClicks.toString());
+            ArrayList<Double> points = new ArrayList<Double>();
+            points.add(primaryPointX);
+            points.add(primaryPointY);
+            points.addAll(mouseClicks);
+            Polygon polygon = new Polygon(points.stream().mapToDouble(Double::doubleValue).toArray()oArray());
+            polygon.setStroke(strokeColorPicker.getValue());
+            polygon.setFill(fillColorPicker.getValue());
+            pane.getChildren().add(polygon);
+            mouseClicks.clear();
+            isDrawing = false;
+        }
     }
     private Shape getLastClickedShape(Pane pane, double mouseX, double mouseY){
         Shape lastClicked = null;
@@ -224,7 +241,6 @@ public class Controller {
         circle.setRadius(radius);
         pane.getChildren().add(circle);
     }
-
     @FXML
     private void switchColor(){
         Color temp = fillColorPicker.getValue();

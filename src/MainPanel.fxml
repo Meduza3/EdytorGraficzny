@@ -26,10 +26,12 @@
             <ColorPicker fx:id="strokeColorPicker" layoutX="583.0" layoutY="7.0" />
             <ColorPicker fx:id="fillColorPicker" layoutX="583.0" layoutY="41.0" />
             <Button fx:id="switchColorButton" layoutX="781.0" layoutY="23.0" mnemonicParsing="false" onAction="#switchColor" prefHeight="25.0" prefWidth="6.0" text="X" />
-            <Button layoutX="84.0" layoutY="8.0" mnemonicParsing="false" onAction="#selectEdit" text="Edit shapes" />
+            <Button layoutX="14.0" layoutY="7.0" mnemonicParsing="false" onAction="#selectEdit" prefHeight="25.0" prefWidth="57.0" text="Edit" />
+            <Button layoutX="89.0" layoutY="8.0" mnemonicParsing="false" text="Move" />
+            <Button layoutX="154.0" layoutY="8.0" mnemonicParsing="false" text="Rotate" />
          </children></AnchorPane>
    </bottom>
    <center>
-      <Pane fx:id="pane" onMouseMoved="#updateCoords" onMousePressed="#draw2" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
+      <Pane fx:id="pane" onMouseMoved="#updateCoords" onMousePressed="#draw" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
    </center>
 </BorderPane>
