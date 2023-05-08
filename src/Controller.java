@@ -189,7 +189,7 @@ public class Controller {
                         } else if(lastClicked instanceof ERectangle){
                             ERectangle currentRectanlge = (ERectangle) lastClicked;
                             currentRectanlge.moveCenter(e.getX(), e.getY());
-                        } else if(lastClicked instanceof Polygon){
+                        } else if(lastClicked instanceof EPolygon){
                             EPolygon currentPolygon = (EPolygon) lastClicked;
                             currentPolygon.moveCenter(e.getX(), e.getY());
                         }
@@ -220,7 +220,7 @@ public class Controller {
             points.add(primaryPointX);
             points.add(primaryPointY);
             points.addAll(mouseClicks);
-            Polygon polygon = new Polygon(points.stream().mapToDouble(Double::doubleValue).toArray());
+            EPolygon polygon = new EPolygon(points.stream().mapToDouble(Double::doubleValue).toArray());
             polygon.setStroke(strokeColorPicker.getValue());
             polygon.setFill(fillColorPicker.getValue());
             addMouseScrolling(polygon);
@@ -295,7 +295,9 @@ public class Controller {
     @FXML
     private void eyedropper(Shape shape){
         fillColorPicker.setValue((Color) shape.getFill());
+        System.out.println(shape.getFill().toString());
         strokeColorPicker.setValue((Color) shape.getStroke());
+        System.out.println(shape.getStroke().toString());
     }
 
     public void addMouseScrolling(Node node) {

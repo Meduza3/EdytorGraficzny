@@ -1,3 +1,4 @@
+import javafx.collections.ObservableList;
 import javafx.scene.shape.Polygon;
 
 import java.util.ArrayList;
@@ -6,22 +7,29 @@ import java.util.Arrays;
 public class EPolygon extends Polygon {
 
     EPolygon(double[] array){
-        super();
+        super(array);
     }
-void moveCenter(double newX, double newY){
-        double[] points = getPoints().stream().mapToDouble(Double::doubleValue).toArray();
-        double[] newPoints = new double[points.length];
-        for(int i = 0; i < points.length; i++){
-            if(i % 2 == 0){
-                newPoints[i] = points[i] + newX;
+void moveCenter(double newX, double newY) {
+        ObservableList<Double> points = this.getPoints();
+        double centerX;
+        double centerY;
+        centerX = points.stream().filter(aDouble -> points.indexOf(aDouble) % 2 == 0).mapToDouble(aDouble -> aDouble).average().orElse(0);
+        centerY = points.stream().filter(aDouble -> points.indexOf(aDouble) % 2 == 1).mapToDouble(aDouble -> aDouble).average().orElse(0);
+        double deltaX = newX - centerX;
+        double deltaY = newY - centerY;
+        ArrayList<Double> newPoints = new ArrayList<>();
+        //add deltaX to all even elements of points
+        //add deltaY to all odd elements of points
+        for (int i = 0; i < points.size(); i++) {
+            if (i % 2 == 0) {
+                newPoints.add(points.get(i) + deltaX);
             } else {
-                newPoints[i] = points[i] + newY;
+                newPoints.add(points.get(i) + deltaY);
             }
         }
-        ArrayList<Double> newPointsArrayList = new ArrayList<>();
-        //Add all elements of newPoints to newPointsArrayList
-        Arrays.stream(newPoints).forEach(newPointsArrayList::add);
-        getPoints().addAll(newPointsArrayList);
-    }
 
+        this.getPoints().clear();
+        this.getPoints().addAll(newPoints);
+
+}
 }
