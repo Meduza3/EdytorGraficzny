@@ -18,8 +18,7 @@ void moveCenter(double newX, double newY) {
         double deltaX = newX - centerX;
         double deltaY = newY - centerY;
         ArrayList<Double> newPoints = new ArrayList<>();
-        //add deltaX to all even elements of points
-        //add deltaY to all odd elements of points
+
         for (int i = 0; i < points.size(); i++) {
             if (i % 2 == 0) {
                 newPoints.add(points.get(i) + deltaX);
