@@ -178,7 +178,7 @@ public class Controller {
             points.add(primaryPointX);
             points.add(primaryPointY);
             points.addAll(mouseClicks);
-            Polygon polygon = new Polygon(points.stream().mapToDouble(Double::doubleValue).toArray()oArray());
+            Polygon polygon = new Polygon(points.stream().mapToDouble(Double::doubleValue).toArray());
             polygon.setStroke(strokeColorPicker.getValue());
             polygon.setFill(fillColorPicker.getValue());
             pane.getChildren().add(polygon);
